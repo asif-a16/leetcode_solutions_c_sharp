@@ -1,23 +1,22 @@
 public class Solution {
-    public bool IsAnagram(string s, string t) {
+    public bool IsAnagram(string s, string t) 
+    {
         if (s.Length != t.Length) return false;
 
-        Dictionary<char, int> stringS = new Dictionary<char, int>();
-        Dictionary<char, int> stringT = new Dictionary<char, int>();
+        Dictionary<char, int> counts = new Dictionary<char, int>();
 
-        foreach (char c in s)
+        foreach (char c in s) 
         {
-            stringS[c] = stringS.GetValueOrDefault(c, 0) + 1;
+            counts[c] = counts.GetValueOrDefault(c, 0) + 1;
         }
 
-        foreach (char c in t)
-        {
-            stringT[c] = stringT.GetValueOrDefault(c, 0) + 1;
-        }
-
-        foreach (var (key, value) in stringS)
-        {
-            if (stringT.GetValueOrDefault(key, -1) != value) return false;
+        foreach (char c in t) {
+            if (!counts.ContainsKey(c) || counts[c] == 0) 
+            {
+                return false;
+            }
+            
+            counts[c]--;
         }
 
         return true;
